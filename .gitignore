@@ -12,3 +12,4 @@ npm-debug.log
 *.bundle.js
 
 node_modules
+.eslintrc

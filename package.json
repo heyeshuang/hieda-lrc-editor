@@ -11,22 +11,24 @@
     "webpack.config.js"
   ],
   "keywords": [
-      "react", "hieda"
+    "react",
+    "hieda"
   ],
   "author": "He Yeshuang <yeshuanghe@gmail.com>",
   "license": "MIT",
-  "dependencies":{
+  "dependencies": {
     "lodash": "3.10.1",
-    "react": "0.14.1",
-    "react-dom": "0.14.1",
     "material-ui": "0.13.1",
-    "uuid": "2.0.1",
-    "splash-screen": "2.2.2",
-    "react-tap-event-plugin": "0.2.1",
+    "react": "0.14.1",
+    "react-addons-create-fragment": "0.14.1",
+    "react-addons-pure-render-mixin": "0.14.1",
     "react-addons-transition-group": "0.14.1",
     "react-addons-update": "0.14.1",
-    "react-addons-create-fragment": "0.14.1",
-    "react-addons-pure-render-mixin": "0.14.1"
+    "react-dom": "0.14.1",
+    "react-soundplayer": "^0.3.1",
+    "react-tap-event-plugin": "0.2.1",
+    "splash-screen": "2.2.2",
+    "uuid": "2.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.15",
