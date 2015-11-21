@@ -3,13 +3,11 @@ import React, {
   PropTypes
 } from 'react';
 
-import Row from '../FlexboxGrid/Row.jsx';
 import Col from '../FlexboxGrid/Col.jsx';
 import Box from '../FlexboxGrid/Box.jsx';
 import {IconButton} from 'material-ui';
-import {Slider} from 'material-ui';
 
-class PlayController extends Component {
+class ButtonGroup extends Component {
 
   constructor (props, content) {
     super(props, content); // this.state = {count: props.initialCount};
@@ -17,7 +15,7 @@ class PlayController extends Component {
 
   render () {
     // const { propOne, propTwo } = this.props;
-    var buttonClass="col-xs-8 col-sm-4";
+    // var buttonClass="col-xs-8 col-sm-4";
 		var isPlaying = this.props.isPlaying;
 		var isPause = this.props.isPause;
     var isLoading= this.props.isLoading;
@@ -49,4 +47,4 @@ class PlayController extends Component {
   }
 }
 
-export default PlayController;
+export default ButtonGroup;

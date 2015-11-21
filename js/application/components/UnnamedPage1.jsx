@@ -7,16 +7,11 @@ import Row from '../components/FlexboxGrid/Row.jsx';
 import Col from '../components/FlexboxGrid/Col.jsx';
 import Box from '../components/FlexboxGrid/Box.jsx';
 import PlayController from './AudioPlayer/PlayController.jsx';
+import LyricsTable from './LyricsTable/LyricsTable.jsx';
 import {RaisedButton} from 'material-ui';
-import {FontIcon} from 'material-ui';
-import {IconButton} from 'material-ui';
 import {Paper} from 'material-ui';
-import {Slider} from 'material-ui';
-import {List} from 'material-ui';
-import {ListItem} from 'material-ui';
 
 class UnnamedPage1 extends Component {
-
   render () {
     return (
       <div>
@@ -25,13 +20,8 @@ class UnnamedPage1 extends Component {
             <Box style={{
               marginTop: '200px'
             }} params={this.props.params}>
-              <Paper zDepth={1} rounded={true} style={{
-                height: 1000
-              }} params={this.props.params}>
-                <List params={this.props.params}>
-                  <ListItem primaryText="Inbox" leftIcon={<FontIcon className="fa fa-inbox" params={ this.props.params }></FontIcon>} params={this.props.params}></ListItem>
-                  <ListItem primaryText="Inbox" leftIcon={<FontIcon className="fa fa-inbox" params={ this.props.params }></FontIcon>} params={this.props.params}></ListItem>
-                </List>
+              <Paper zDepth={1} rounded={true} params={this.props.params}>
+                <LyricsTable />
               </Paper>
             </Box>
           </Col>
