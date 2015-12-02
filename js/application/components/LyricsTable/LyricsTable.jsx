@@ -5,7 +5,6 @@ import React, {
 
 import {Table,TableHeader,TableHeaderColumn,TableBody,
   TableRow,TableRowColumn,TableFooter} from 'material-ui';
-import LyricsRow from './LyricsRow.jsx';
 import {LrcPre,lyricsDemo} from '../LrcPreprocess.js';
 class LyricsTable extends Component {
   _bind(...methods) {
@@ -39,9 +38,11 @@ class LyricsTable extends Component {
           displayRowCheckbox={false}>
           {LrcPre(lyricsDemo).map((value,index)=>{
             return(
-              <LyricsRow isSelected={index==this.props.selectedRow?true:false}
-                time={value[0]} key={value[0]}
-                lyricsContent={value[1]} onCellClick={this._onCellClick}/>
+              <TableRow selected={index==this.props.selectedRow?true:false}
+                onCellClick={this._onCellClick} key={"lr"+index}>
+                <TableRowColumn width='100px'>{value[0]}</TableRowColumn>
+                <TableRowColumn>{value[1]}</TableRowColumn>
+              </TableRow>
             )
           })}
         </TableBody>
