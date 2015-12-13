@@ -35,4 +35,4 @@ export function LrcPre(lrc){
     }
     return newEleArr;
   })}
-console.log(LrcPre(lyricsDemo));//输出第一列为方括号内容，第二列为歌词
+//console.log(LrcPre(lyricsDemo));//输出第一列为方括号内容，第二列为歌词

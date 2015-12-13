@@ -21,7 +21,7 @@ class LyricsTable extends Component {
       <Table
         height='auto'
         fixedHeader={false}
-        selectable={false}
+        selectable={true}
         multiSelectable={false}
         onCellClick={this._onCellClick}
         >
@@ -38,7 +38,7 @@ class LyricsTable extends Component {
           displayRowCheckbox={false}>
           {LrcPre(lyricsDemo).map((value,index)=>{
             return(
-              <TableRow selected={index==this.props.selectedRow?true:false}
+              <TableRow selected={index==this.props.selectedRow}
                 onCellClick={this._onCellClick} key={"lr"+index}>
                 <TableRowColumn width='100px'>{value[0]}</TableRowColumn>
                 <TableRowColumn>{value[1]}</TableRowColumn>
@@ -51,12 +51,11 @@ class LyricsTable extends Component {
   }
   _onCellClick(a,b){
     console.log(a,b);
-      //TODO:修改此事件，现在不工作
   }
 }
 
 LyricsTable.defaultProps={
-  selectedRow:0,
+  selectedRow:5,
 }
 
 export default LyricsTable;
