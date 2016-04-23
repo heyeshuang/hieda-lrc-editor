@@ -5,7 +5,7 @@ import React, {
 
 import {Table,TableHeader,TableHeaderColumn,TableBody,
   TableRow,TableRowColumn,TableFooter} from 'material-ui';
-import {LrcPre,lyricsDemo} from '../LrcPreprocess.js';
+import {LrcPre,lyricsDemo} from '../../../LrcPreprocess.js';
 class LyricsTable extends Component {
   _bind(...methods) {
     methods.forEach( (method) => this[method] = this[method].bind(this) );
@@ -25,7 +25,7 @@ class LyricsTable extends Component {
         multiSelectable={false}
         onCellClick={this._onCellClick}
         >
-        <TableHeader enableSelectAll={this.state.enableSelectAll}
+        <TableHeader enableSelectAll={false}
           adjustForCheckbox={false} displaySelectAll={false}>
           <TableRow>
             <TableHeaderColumn width='100px' tooltip='timestamp'>Time</TableHeaderColumn>
@@ -36,7 +36,7 @@ class LyricsTable extends Component {
           deselectOnClickaway={false}
           showRowHover={true}
           displayRowCheckbox={false}>
-          {LrcPre(lyricsDemo).map((value,index)=>{
+          {LrcPre(this.props.lrcRaw).map((value,index)=>{
             return(
               <TableRow selected={index==this.props.selectedRow}
                 onCellClick={this._onCellClick} key={"lr"+index}>
@@ -54,8 +54,14 @@ class LyricsTable extends Component {
   }
 }
 
+LyricsTable.propTypes={
+  lrcRaw:PropTypes.string,
+  selectedRow:PropTypes.number,
+}
+
 LyricsTable.defaultProps={
   selectedRow:5,
+  lrcRaw:lyricsDemo,
 }
 
 export default LyricsTable;

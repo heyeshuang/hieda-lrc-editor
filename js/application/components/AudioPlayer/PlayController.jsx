@@ -62,6 +62,7 @@ class PlayController extends Component {
       </div>
     );
   }
+  //ideal: statics onBackBtnClick=()=>{...}, autobind `this`
   onBackBtnClick  () {
     var p=(this.state.seek-this.state.step)/this.state.duration;
     this.seekTo((p>0?p:0));
