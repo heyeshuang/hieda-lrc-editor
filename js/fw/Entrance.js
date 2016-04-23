@@ -8,9 +8,9 @@
 'use strict';
 import Splash from 'splash-screen';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import ReactDOM from 'react-dom';
 import Application from 'js/application/Application.jsx';
 import hiedaApp from 'js/reducers.js'
 import { changeFile, changeRow, modifyCell } from 'js/actions.js'
@@ -42,16 +42,16 @@ class Entrance {
 
     launch() {
         ReactDOM.render(
-          // <Provider store={store}>
+          <Provider store={store}>
             <Application />
-          // </Provider>
+          </Provider>
           ,document.querySelector('#view'));
         console.log(store.getState());
         let unsubscribe = store.subscribe(() =>
           console.log(store.getState())
         );
         store.dispatch(changeFile("aaaaa"));
-        store.dispatch(changeRow(5));
+        store.dispatch(changeRow(10));
         store.dispatch(modifyCell(5,0,"aaaaa"));
         unsubscribe();
     }

@@ -23,7 +23,7 @@ class LyricsTable extends Component {
         fixedHeader={false}
         selectable={true}
         multiSelectable={false}
-        onCellClick={this._onCellClick}
+        onCellClick={this.props.callbackParent}
         >
         <TableHeader enableSelectAll={false}
           adjustForCheckbox={false} displaySelectAll={false}>
@@ -39,7 +39,7 @@ class LyricsTable extends Component {
           {LrcPre(this.props.lrcRaw).map((value,index)=>{
             return(
               <TableRow selected={index==this.props.selectedRow}
-                onCellClick={this._onCellClick} key={"lr"+index}>
+                key={"lr"+index}>
                 <TableRowColumn width='100px'>{value[0]}</TableRowColumn>
                 <TableRowColumn>{value[1]}</TableRowColumn>
               </TableRow>
@@ -48,9 +48,6 @@ class LyricsTable extends Component {
         </TableBody>
       </Table>
     )
-  }
-  _onCellClick(a,b){
-    console.log(a,b);
   }
 }
 
