@@ -2,6 +2,7 @@ import React, {
   Component,
   PropTypes
 } from 'react';
+import ReactDOM from 'react-dom';
 
 import {Table,TableHeader,TableHeaderColumn,TableBody,
   TableRow,TableRowColumn,TableFooter} from 'material-ui';
@@ -27,7 +28,7 @@ class LyricsTable extends Component {
         >
         <TableHeader enableSelectAll={false}
           adjustForCheckbox={false} displaySelectAll={false}>
-          <TableRow>
+          <TableRow >
             <TableHeaderColumn width='100px' tooltip='timestamp'>Time</TableHeaderColumn>
             <TableHeaderColumn tooltip='lyrics row'>Lyrics</TableHeaderColumn>
           </TableRow>
@@ -36,9 +37,12 @@ class LyricsTable extends Component {
           deselectOnClickaway={false}
           showRowHover={true}
           displayRowCheckbox={false}>
-          {LrcPre(this.props.lrcRaw).map((value,index)=>{
+          {this.props.lrcArray.map((value,index)=>{
+             let selected=index==this.props.selectedRow;
+             let selectedNext=index==this.props.selectedRow+2;
             return(
-              <TableRow selected={index==this.props.selectedRow}
+              <TableRow selected={selected}
+                ref={selectedNext?"selectedNext":""}
                 key={"lr"+index}>
                 <TableRowColumn width='100px'>{value[0]}</TableRowColumn>
                 <TableRowColumn>{value[1]}</TableRowColumn>
@@ -49,16 +53,19 @@ class LyricsTable extends Component {
       </Table>
     )
   }
+  componentDidUpdate(){
+    ReactDOM.findDOMNode(this.refs.selectedNext).scrollIntoView(false);
+  }
 }
 
 LyricsTable.propTypes={
-  lrcRaw:PropTypes.string,
+  lrcArray:PropTypes.array,
   selectedRow:PropTypes.number,
 }
 
 LyricsTable.defaultProps={
-  selectedRow:5,
-  lrcRaw:lyricsDemo,
+  selectedRow:0,
+  // lrcArray:LrcPre(lyricsDemo),
 }
 
 export default LyricsTable;

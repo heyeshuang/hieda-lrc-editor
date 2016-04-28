@@ -46,14 +46,14 @@ class Entrance {
             <Application />
           </Provider>
           ,document.querySelector('#view'));
-        console.log(store.getState());
-        let unsubscribe = store.subscribe(() =>
-          console.log(store.getState())
-        );
-        store.dispatch(changeFile("aaaaa"));
-        store.dispatch(changeRow(10));
-        store.dispatch(modifyCell(5,0,"aaaaa"));
-        unsubscribe();
+        // console.log(store.getState());
+        // let unsubscribe = store.subscribe(() =>
+        //   console.log(store.getState())
+        // );
+        // store.dispatch(changeFile("aaaaa"));
+        // store.dispatch(changeRow(10));
+        // store.dispatch(modifyCell(5,0,"aaaaa"));
+        // unsubscribe();
     }
 
     run() {

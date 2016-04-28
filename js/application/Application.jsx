@@ -11,19 +11,42 @@ import LyricsTable from './components/LyricsTable/LyricsTable.jsx';
 import {RaisedButton} from 'material-ui';
 import {Paper} from 'material-ui';
 import { changeFile, changeRow, modifyCell } from 'js/actions.js'
+import {secondsToTime} from 'js/TimeFormatter.js'
 
-class Application extends Component {  _bind(...methods) {
-    methods.forEach( (method) => this[method] = this[method].bind(this) );
-  }
+class Application extends Component {
+  // _bind(...methods) {
+  //   methods.forEach( (method) => this[method] = this[method].bind(this) );
+  // }
   constructor(props){
     super(props);
     const { dispatch } = props;
-    this.onCellClick=(a,b)=>{
-      this.props.dispatch(changeRow(a));}
-    this._bind('render');
+    // const {rowIndex,lrcArray,fileName}=this.props
+    this.onCellClick=(a)=>{
+      this.props.dispatch(changeRow(a));
+    }
+    this.onAddClick=()=>{
+      let seek=0;
+      try {
+        seek=this.refs.playc.seekNow();
+      }
+      catch(err){
+        // if (err instanceof TypeError){
+        seek=this.refs.playc.state.seek;
+        // }
+      }
+      seek=secondsToTime(seek);
+      // console.log(this.props.rowIndex);
+      this.props.dispatch(modifyCell(this.props.rowIndex,0,seek));
+      this.props.dispatch(changeRow(this.props.rowIndex+1));
+      //TODO:scroll
+    }
+    this.onDeleteClick=()=>{
+
+    }
+    // this._bind('render','onCellClick');
   }
+
   render () {
-    const {rowIndex,lrcArray,fileName}=this.props
     return (
       <div>
         <Row className="center-xs" params={this.props.params}>
@@ -32,7 +55,8 @@ class Application extends Component {  _bind(...methods) {
                 marginTop: '200px'
               }} params={this.props.params}>
               <Paper zDepth={1} rounded={true} params={this.props.params}>
-                <LyricsTable callbackParent={this.onCellClick} selectedRow={this.props.rowIndex} />
+                <LyricsTable callbackParent={this.onCellClick}
+                  lrcArray={this.props.lrcArray} selectedRow={this.props.rowIndex} />
               </Paper>
             </Box>
           </Col>
@@ -46,7 +70,7 @@ class Application extends Component {  _bind(...methods) {
             <Col className="col-xs-12 col-md-8" params={this.props.params}>
               <Box params={this.props.params}>
                 <Paper zDepth={4} rounded={true} params={this.props.params}>
-                  <PlayController />
+                  <PlayController ref="playc" />
                   <Row className="middle-xs around-xs" style={{
                       padding: '0 10px 20px'
                     }} params={this.props.params}>
@@ -56,7 +80,8 @@ class Application extends Component {  _bind(...methods) {
                       <Box params={this.props.params}>
                         <RaisedButton label="Add" primary={true} style={{
                             width: '80%'
-                          }} params={this.props.params}></RaisedButton>
+                          }} params={this.props.params} onMouseDown={this.onAddClick}
+                          ></RaisedButton>
                         </Box>
                       </Col>
                       <Col className="col-xs-12 col-sm-3" params={this.props.params}>

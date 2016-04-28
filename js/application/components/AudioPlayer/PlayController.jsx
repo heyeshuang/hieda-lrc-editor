@@ -23,6 +23,7 @@ class PlayController extends Component {
       isLoading: false,
       volume: 0.5,
       step: 10,
+      seek: 0,
       songs: [
         {
           url: "statics/Wilf-YouAreMySunshine.mp3"
@@ -34,7 +35,7 @@ class PlayController extends Component {
                 'initSoundObject','initSoundObjectCompleted',
                 'clearSoundObject','_play','playEnd','pause','stop',
                 'updateCurrentDuration','stopUpdateCurrentDuration',
-                'seekTo','adjustVolumeTo'
+                'seekTo','seekNow','adjustVolumeTo'
               );
   }
 
@@ -54,6 +55,7 @@ class PlayController extends Component {
               marginTop: '50px'
             }}>
               <Slider name="playProgress" value={this.state.seek/this.state.duration}
+                disabled={!this.howler}
                 onChange={this.onSliderChange} step={0.0001}
                 ></Slider>
             </Box>
@@ -86,7 +88,7 @@ class PlayController extends Component {
       : this._play();
   }
   onSliderChange (event,value){
-    this.seekTo(value);
+    if (this.howler) this.seekTo(value);
   }
   play () {
 
@@ -160,6 +162,9 @@ class PlayController extends Component {
 		this.setState({ seek: seek });
 	}
 
+  seekNow() {
+    return this.howler.seek();
+  }
 	adjustVolumeTo(percent) {
 		this.setState({ volume: percent });
 		if (this.howler) {

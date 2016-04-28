@@ -14,7 +14,7 @@ function rowIndex(state=0,action){
 function lrcArray(state=LrcPre(lyricsDemo),action){
   switch (action.type){
     case MODIFY_CELL:
-      let state_copy=Object.assign({},state);
+      let state_copy=state.concat();
       state_copy[action.rowIndex][action.cellIndex]=action.text;
       return state_copy;
     default:
