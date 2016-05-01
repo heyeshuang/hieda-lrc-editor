@@ -13,7 +13,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import Application from 'js/application/Application.jsx';
 import hiedaApp from 'js/reducers.js'
-import { changeFile, changeRow, modifyCell } from 'js/actions.js'
+// import { changeFile, changeRow, modifyCell } from 'js/actions.js'
 let store = createStore(hiedaApp)
 
 class Entrance {
@@ -48,7 +48,7 @@ class Entrance {
           ,document.querySelector('#view'));
         // console.log(store.getState());
         // let unsubscribe = store.subscribe(() =>
-        //   console.log(store.getState())
+          // console.log(store.getState())
         // );
         // store.dispatch(changeFile("aaaaa"));
         // store.dispatch(changeRow(10));

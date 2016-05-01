@@ -7,7 +7,6 @@ import ButtonGroup from './ButtonGroup.jsx';
 import Row from '../FlexboxGrid/Row.jsx';
 import Col from '../FlexboxGrid/Col.jsx';
 import Box from '../FlexboxGrid/Box.jsx';
-import {IconButton} from 'material-ui';
 import {Slider} from 'material-ui';
 import {Howl} from './howler.min.js';
 
@@ -24,6 +23,7 @@ class PlayController extends Component {
       volume: 0.5,
       step: 10,
       seek: 0,
+      initSucceed: false,
       songs: [
         {
           url: "statics/Wilf-YouAreMySunshine.mp3"
@@ -46,7 +46,8 @@ class PlayController extends Component {
         <Row className="middle-xs around-xs" style={{
           margin: '0 20px '
         }}>
-          <ButtonGroup isPlaying={this.state.isPlaying} isPause={this.state.isPause}
+          <ButtonGroup disabled={this.props.fileURL.length == 0}
+            isPlaying={this.state.isPlaying} isPause={this.state.isPause}
             isLoading={this.state.isLoading}
              onPlayBtnClick={this.onPlayBtnClick} onPauseBtnClick={this.onPauseBtnClick}
              onBackBtnClick={this.onBackBtnClick} onForwardBtnClick={this.onForwardBtnClick}/>
@@ -70,6 +71,7 @@ class PlayController extends Component {
     this.seekTo((p>0?p:0));
   }
   onForwardBtnClick () {
+    console.log(this.howler)
     this.seekTo((this.state.seek+this.state.step)/this.state.duration);
   }
 
@@ -97,7 +99,8 @@ class PlayController extends Component {
     if (!this.howler) {
       this.initSoundObject();
     } else {
-      var songUrl = this.state.songs[0].url;
+      // var songUrl = this.state.songs[0].url;
+      var songUrl =  this.props.fileURL;
       if (songUrl != this.howler._src) {
         this.initSoundObject();
       } else {
@@ -110,8 +113,13 @@ class PlayController extends Component {
     this.clearSoundObject();
     this.setState({isLoading: true});
 
-    var song = this.state.songs[0];
-    this.howler = new Howl({src: song.url, volume: this.state.volume, onload: this.initSoundObjectCompleted, onend: this.playEnd});
+    // var song = this.state.songs[0];
+    var song = this.props.fileURL;
+    this.howler = new Howl({src: [song],
+                            volume: this.state.volume,
+                            format: ["mp3"],
+                            onload: this.initSoundObjectCompleted,
+                            onend: this.playEnd});
   }
 
   clearSoundObject () {
@@ -120,12 +128,22 @@ class PlayController extends Component {
         .stop();
       this.howler = null;
     }
+    this.setState({initSucceed: false})
   }
 
   initSoundObjectCompleted () {
-    this._play();
-    this.setState({duration: this.howler
-        .duration(), isLoading: false});
+    try{
+      this._play();
+      this.setState({duration: this.howler.duration(),
+                    initSucceed: true,
+                    isLoading: false});
+    }
+    catch(e){
+      //TODO:make a toast to show load error
+      clearSoundObject()
+      this.setState({initSucceed: false,
+                    isLoading: false});
+    }
   }
 
 	_play() {

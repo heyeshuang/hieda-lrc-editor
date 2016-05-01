@@ -9,7 +9,9 @@ import Box from './components/FlexboxGrid/Box.jsx';
 import PlayController from './components/AudioPlayer/PlayController.jsx';
 import LyricsTable from './components/LyricsTable/LyricsTable.jsx';
 import {RaisedButton} from 'material-ui';
+import {FontIcon} from 'material-ui';
 import {Paper} from 'material-ui';
+import FileReaderInput from 'react-file-reader-input';
 import { changeFile, changeRow, modifyCell } from 'js/actions.js'
 import {secondsToTime} from 'js/TimeFormatter.js'
 
@@ -22,7 +24,7 @@ class Application extends Component {
     const { dispatch } = props;
     // const {rowIndex,lrcArray,fileName}=this.props
     this.onCellClick=(a)=>{
-      this.props.dispatch(changeRow(a));
+      dispatch(changeRow(a));
     }
     this.onAddClick=()=>{
       let seek=0;
@@ -35,13 +37,21 @@ class Application extends Component {
         // }
       }
       seek=secondsToTime(seek);
-      // console.log(this.props.rowIndex);
-      this.props.dispatch(modifyCell(this.props.rowIndex,0,seek));
-      this.props.dispatch(changeRow(this.props.rowIndex+1));
-      //TODO:scroll
+      dispatch(modifyCell(this.props.rowIndex,0,seek));
+      dispatch(changeRow(this.props.rowIndex+1));
     }
     this.onDeleteClick=()=>{
-
+      dispatch(modifyCell(this.props.rowIndex,0,""));
+    }
+    this.onOpenClick=()=>{
+      var fileInput = document.querySelector('#fileElem');
+      console.log(fileInput);
+      click(fileInput);
+    }
+    this.handleFile=(f)=>{
+      let fileURL=URL.createObjectURL(f.target.files[0])
+      console.log(fileURL)
+      dispatch(changeFile(fileURL))
     }
     // this._bind('render','onCellClick');
   }
@@ -70,7 +80,7 @@ class Application extends Component {
             <Col className="col-xs-12 col-md-8" params={this.props.params}>
               <Box params={this.props.params}>
                 <Paper zDepth={4} rounded={true} params={this.props.params}>
-                  <PlayController ref="playc" />
+                  <PlayController ref="playc" fileURL={this.props.fileName}/>
                   <Row className="middle-xs around-xs" style={{
                       padding: '0 10px 20px'
                     }} params={this.props.params}>
@@ -90,23 +100,28 @@ class Application extends Component {
                           }} params={this.props.params}>
                           <RaisedButton label="Delete" style={{
                               width: '80%'
-                            }} secondary={true} params={this.props.params}></RaisedButton>
+                            }} secondary={true} params={this.props.params}
+                            onMouseDown={this.onDeleteClick}></RaisedButton>
                           </Box>
                         </Col>
                         <Col className="col-xs-12 col-sm-3" params={this.props.params}>
                           <Box style={{
                               marginBottom: '10px'
                             }} params={this.props.params}>
-                            <RaisedButton label="Perv Tag" style={{
+                            <FileReaderInput as="binary" id="my-file-input"
+                              onChange={this.handleFile}>
+                              <RaisedButton label="Open File" style={{
                                 width: '80%'
-                              }} params={this.props.params}></RaisedButton>
+                              }} params={this.props.params}
+                              icon={<FontIcon className="fa fa-music"/>}
+                              ></RaisedButton></FileReaderInput>
                             </Box>
                           </Col>
                           <Col className="col-xs-12 col-sm-3" params={this.props.params}>
                             <Box style={{
                                 marginBottom: '10px'
                               }} params={this.props.params}>
-                              <RaisedButton label="Next Tag" style={{
+                              <RaisedButton label="Raw" style={{
                                   width: '80%'
                                 }} params={this.props.params}></RaisedButton>
                               </Box>

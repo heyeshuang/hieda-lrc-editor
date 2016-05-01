@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 
 import {Table,TableHeader,TableHeaderColumn,TableBody,
   TableRow,TableRowColumn,TableFooter} from 'material-ui';
-import {LrcPre,lyricsDemo} from '../../../LrcPreprocess.js';
+// import {LrcPre,lyricsDemo} from '../../../LrcPreprocess.js';
 class LyricsTable extends Component {
   _bind(...methods) {
     methods.forEach( (method) => this[method] = this[method].bind(this) );

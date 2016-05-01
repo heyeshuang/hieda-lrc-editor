@@ -36,11 +36,11 @@ class ButtonGroup extends Component {
       <Col >
         <Box>
           <IconButton iconClassName={iconName} tooltip={iconTooltip}
-            onClick={buttonClickHandler}></IconButton>
+            onClick={buttonClickHandler} disabled={this.props.disabled}></IconButton>
           <IconButton iconClassName="fa fa-backward" tooltip="Backward"
-            onClick={this.props.onBackBtnClick}></IconButton>
+            onClick={this.props.onBackBtnClick} disabled={this.props.disabled}></IconButton>
           <IconButton iconClassName="fa fa-forward" tooltip="Forward"
-            onClick={this.props.onForwardBtnClick}></IconButton>
+            onClick={this.props.onForwardBtnClick} disabled={this.props.disabled}></IconButton>
         </Box>
       </Col>
     );
