@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 
 import ButtonGroup from './ButtonGroup.jsx';
+import Snackbar from 'material-ui/lib/snackbar';
 import Row from '../FlexboxGrid/Row.jsx';
 import Col from '../FlexboxGrid/Col.jsx';
 import Box from '../FlexboxGrid/Box.jsx';
@@ -24,6 +25,7 @@ class PlayController extends Component {
       step: 10,
       seek: 0,
       initSucceed: false,
+      openError: false,
       songs: [
         {
           url: "statics/Wilf-YouAreMySunshine.mp3"
@@ -35,7 +37,7 @@ class PlayController extends Component {
                 'initSoundObject','initSoundObjectCompleted',
                 'clearSoundObject','_play','playEnd','pause','stop',
                 'updateCurrentDuration','stopUpdateCurrentDuration',
-                'seekTo','seekNow','adjustVolumeTo'
+                'seekTo','seekNow','adjustVolumeTo','onLoadError'
               );
   }
 
@@ -62,6 +64,12 @@ class PlayController extends Component {
             </Box>
           </Col>
         </Row>
+        <Snackbar
+          open={this.state.openError}
+          message="Incompatible File Format"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
       </div>
     );
   }
@@ -118,8 +126,20 @@ class PlayController extends Component {
     this.howler = new Howl({src: [song],
                             volume: this.state.volume,
                             format: ["mp3"],
+                            // html5: true,
+                            onloaderror: this.onLoadError,
                             onload: this.initSoundObjectCompleted,
                             onend: this.playEnd});
+  }
+  onLoadError(){
+    console.log("error");
+    this.clearSoundObject();
+    this.setState({initSucceed: false,
+      isLoading: false,
+      isPlaying: false,
+      isPause: false,
+      openError: true
+    });
   }
 
   clearSoundObject () {
@@ -128,23 +148,16 @@ class PlayController extends Component {
         .stop();
       this.howler = null;
     }
-    this.setState({initSucceed: false})
   }
 
   initSoundObjectCompleted () {
-    try{
-      this._play();
-      this.setState({duration: this.howler.duration(),
-                    initSucceed: true,
-                    isLoading: false});
+    this._play();
+    this.setState({duration: this.howler.duration(),
+      initSucceed: true,
+      isLoading: false,
+      openError: false
+    });
     }
-    catch(e){
-      //TODO:make a toast to show load error
-      clearSoundObject()
-      this.setState({initSucceed: false,
-                    isLoading: false});
-    }
-  }
 
 	_play() {
 		this.howler.play();

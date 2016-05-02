@@ -49,6 +49,7 @@ class Application extends Component {
       click(fileInput);
     }
     this.handleFile=(f)=>{
+      this.refs.playc.state.openError = false
       let fileURL=URL.createObjectURL(f.target.files[0])
       console.log(fileURL)
       dispatch(changeFile(fileURL))
