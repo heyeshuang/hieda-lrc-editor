@@ -48,9 +48,9 @@ class Entrance {
           ,document.querySelector('#view'));
         // console.log(store.getState());
         // let unsubscribe = store.subscribe(() =>
-          // console.log(store.getState())
+        //   console.log(store.getState())
         // );
-        // store.dispatch(changeFile("aaaaa"));
+        // store.dispatch(changeFile("aaaaa","mp3"));
         // store.dispatch(changeRow(10));
         // store.dispatch(modifyCell(5,0,"aaaaa"));
         // unsubscribe();

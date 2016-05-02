@@ -22,10 +22,12 @@ function lrcArray(state=LrcPre(lyricsDemo),action){
   }
 }
 
-function fileName(state="",action){ //TODO
+function file(state={fileURL:"",fileFormat:""},action){
   switch (action.type) {
     case CHANGE_FILE:
-      return action.fileURL;
+      return {fileURL:action.fileURL,
+              fileFormat:action.fileFormat
+            };
     default:
       return state;
   }
@@ -34,7 +36,7 @@ function fileName(state="",action){ //TODO
 const hiedaApp=combineReducers({
   rowIndex,
   lrcArray,
-  fileName
+  file
 });
 
 export default hiedaApp;

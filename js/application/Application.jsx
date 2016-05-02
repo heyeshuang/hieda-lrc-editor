@@ -11,6 +11,8 @@ import LyricsTable from './components/LyricsTable/LyricsTable.jsx';
 import {RaisedButton} from 'material-ui';
 import {FontIcon} from 'material-ui';
 import {Paper} from 'material-ui';
+import Dialog from 'material-ui/lib/dialog';
+import FlatButton from 'material-ui/lib/flat-button';
 import FileReaderInput from 'react-file-reader-input';
 import { changeFile, changeRow, modifyCell } from 'js/actions.js'
 import {secondsToTime} from 'js/TimeFormatter.js'
@@ -23,6 +25,9 @@ class Application extends Component {
     super(props);
     const { dispatch } = props;
     // const {rowIndex,lrcArray,fileName}=this.props
+    this.state={
+      openDialog:false,
+    }
     this.onCellClick=(a)=>{
       dispatch(changeRow(a));
     }
@@ -49,15 +54,38 @@ class Application extends Component {
       click(fileInput);
     }
     this.handleFile=(f)=>{
-      this.refs.playc.state.openError = false
-      let fileURL=URL.createObjectURL(f.target.files[0])
-      console.log(fileURL)
-      dispatch(changeFile(fileURL))
+      // this.refs.playc.state.openError = false
+      let file=f.target.files[0]
+      let fileURL=URL.createObjectURL(file);
+      let fileFormat=file.name.substr(file.name.lastIndexOf('.')+1)
+      console.log(fileFormat)
+      dispatch(changeFile(fileURL,fileFormat))
+    }
+    this.onDialogOpen=()=>{
+      //TODO
+      this.setState({openDialog: true});
+    }
+    this.onDialogClose=()=>{
+      //TODO
+      this.setState({openDialog: false});
     }
     // this._bind('render','onCellClick');
   }
 
   render () {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        secondary={true}
+        onTouchTap={this.onDialogClose}
+        />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.onDialogClose}
+        />,
+    ];
     return (
       <div>
         <Row className="center-xs" params={this.props.params}>
@@ -81,7 +109,7 @@ class Application extends Component {
             <Col className="col-xs-12 col-md-8" params={this.props.params}>
               <Box params={this.props.params}>
                 <Paper zDepth={4} rounded={true} params={this.props.params}>
-                  <PlayController ref="playc" fileURL={this.props.fileName}/>
+                  <PlayController ref="playc" file={this.props.file}/>
                   <Row className="middle-xs around-xs" style={{
                       padding: '0 10px 20px'
                     }} params={this.props.params}>
@@ -124,7 +152,8 @@ class Application extends Component {
                               }} params={this.props.params}>
                               <RaisedButton label="Raw" style={{
                                   width: '80%'
-                                }} params={this.props.params}></RaisedButton>
+                                }} params={this.props.params}
+                                onMouseDown={this.onDialogOpen}></RaisedButton>
                               </Box>
                             </Col>
                           </Row>
@@ -133,6 +162,15 @@ class Application extends Component {
                     </Col>
                   </Row>
                 </div>
+                <Dialog
+                  title="Dialog With Actions"
+                  actions={actions}
+                  modal={true}
+                  open={this.state.openDialog}
+                  onRequestClose={this.onDialogClose}
+                  >
+                  The actions in this window were passed in as an array of React objects.
+                </Dialog>
               </div>
             );
           }
@@ -141,7 +179,7 @@ function select(state) {
   return {
     rowIndex:state.rowIndex,
     lrcArray:state.lrcArray,
-    fileName:state.fileName
+    file:state.file
   }
 }
 export default connect(select)(Application);

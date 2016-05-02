@@ -2,10 +2,11 @@ export const CHANGE_FILE="CHANGE_FILE";
 export const CHANGE_ROW="CHANGE_ROW";
 export const MODIFY_CELL="MODIFY_CELL";
 
-export function changeFile(fileURL) {
+export function changeFile(fileURL,fileFormat) {
   return {
     type: CHANGE_FILE,
-    fileURL
+    fileURL,
+    fileFormat
   }
 }
 export function changeRow(index) {

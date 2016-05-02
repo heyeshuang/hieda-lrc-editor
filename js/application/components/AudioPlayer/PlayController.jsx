@@ -37,7 +37,8 @@ class PlayController extends Component {
                 'initSoundObject','initSoundObjectCompleted',
                 'clearSoundObject','_play','playEnd','pause','stop',
                 'updateCurrentDuration','stopUpdateCurrentDuration',
-                'seekTo','seekNow','adjustVolumeTo','onLoadError'
+                'seekTo','seekNow','adjustVolumeTo','onLoadError',
+              'onSnackbarClose'
               );
   }
 
@@ -48,7 +49,7 @@ class PlayController extends Component {
         <Row className="middle-xs around-xs" style={{
           margin: '0 20px '
         }}>
-          <ButtonGroup disabled={this.props.fileURL.length == 0}
+          <ButtonGroup disabled={this.props.file.fileURL.length == 0}
             isPlaying={this.state.isPlaying} isPause={this.state.isPause}
             isLoading={this.state.isLoading}
              onPlayBtnClick={this.onPlayBtnClick} onPauseBtnClick={this.onPauseBtnClick}
@@ -68,12 +69,17 @@ class PlayController extends Component {
           open={this.state.openError}
           message="Incompatible File Format"
           autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
+          onRequestClose={this.onSnackbarClose}
         />
       </div>
     );
   }
   //ideal: statics onBackBtnClick=()=>{...}, autobind `this`
+  onSnackbarClose (){
+    this.setState({
+      openError: false
+    })
+  }
   onBackBtnClick  () {
     var p=(this.state.seek-this.state.step)/this.state.duration;
     this.seekTo((p>0?p:0));
@@ -108,7 +114,7 @@ class PlayController extends Component {
       this.initSoundObject();
     } else {
       // var songUrl = this.state.songs[0].url;
-      var songUrl =  this.props.fileURL;
+      var songUrl =  this.props.file.fileURL;
       if (songUrl != this.howler._src) {
         this.initSoundObject();
       } else {
@@ -122,10 +128,10 @@ class PlayController extends Component {
     this.setState({isLoading: true});
 
     // var song = this.state.songs[0];
-    var song = this.props.fileURL;
+    var song = this.props.file.fileURL;
     this.howler = new Howl({src: [song],
                             volume: this.state.volume,
-                            format: ["mp3"],
+                            format: [this.props.file.fileFormat],
                             // html5: true,
                             onloaderror: this.onLoadError,
                             onload: this.initSoundObjectCompleted,
