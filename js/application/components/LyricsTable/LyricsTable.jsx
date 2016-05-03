@@ -54,12 +54,16 @@ class LyricsTable extends Component {
     )
   }
   componentDidUpdate(){
+    try{
     if (!Element.prototype.scrollIntoViewIfNeeded) {
       // ReactDOM.findDOMNode(this.refs.selectedNext).scrollIntoView(false);
       ReactDOM.findDOMNode(this.refs.selectedNext).scrollIntoView({block: "end", behavior: "smooth"});
     }
     else {
       ReactDOM.findDOMNode(this.refs.selectedNext).scrollIntoViewIfNeeded(false);
+    }}
+    catch(e){
+      //DO NOTHING
     }
   }
 }

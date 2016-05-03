@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {CHANGE_ROW,CHANGE_FILE,MODIFY_CELL} from './actions.js'
+import {CHANGE_ROW,CHANGE_FILE,MODIFY_CELL,MODIFY_ALL} from './actions.js'
 import {LrcPre,lyricsDemo} from './LrcPreprocess.js';
 
 function rowIndex(state=0,action){
@@ -17,6 +17,8 @@ function lrcArray(state=LrcPre(lyricsDemo),action){
       let state_copy=state.concat();
       state_copy[action.rowIndex][action.cellIndex]=action.text;
       return state_copy;
+    case MODIFY_ALL:
+      return LrcPre(action.lrcText);
     default:
       return state;
   }

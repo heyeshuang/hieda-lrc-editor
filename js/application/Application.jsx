@@ -13,9 +13,11 @@ import {FontIcon} from 'material-ui';
 import {Paper} from 'material-ui';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
+import TextField from 'material-ui/lib/text-field';
 import FileReaderInput from 'react-file-reader-input';
-import { changeFile, changeRow, modifyCell } from 'js/actions.js'
+import { changeFile, changeRow, modifyCell,modifyAll } from 'js/actions.js'
 import {secondsToTime} from 'js/TimeFormatter.js'
+import {LrcPre,LrcReset} from 'js/LrcPreprocess.js'
 
 class Application extends Component {
   // _bind(...methods) {
@@ -27,6 +29,7 @@ class Application extends Component {
     // const {rowIndex,lrcArray,fileName}=this.props
     this.state={
       openDialog:false,
+      dialogContent:"",
     }
     this.onCellClick=(a)=>{
       dispatch(changeRow(a));
@@ -58,16 +61,28 @@ class Application extends Component {
       let file=f.target.files[0]
       let fileURL=URL.createObjectURL(file);
       let fileFormat=file.name.substr(file.name.lastIndexOf('.')+1)
-      console.log(fileFormat)
+      // console.log(fileFormat)
       dispatch(changeFile(fileURL,fileFormat))
     }
     this.onDialogOpen=()=>{
       //TODO
-      this.setState({openDialog: true});
+      this.setState({openDialog: true,
+      dialogContent:LrcReset(this.props.lrcArray)})
+    }
+    this.onDialogChange=(event)=>{
+      this.setState({
+        dialogContent:event.target.value
+      })
     }
     this.onDialogClose=()=>{
       //TODO
-      this.setState({openDialog: false});
+      this.setState({openDialog: false,
+      dialogContent:""});
+    }
+    this.onDialogSave=()=>{
+      dispatch(modifyAll(this.state.dialogContent));
+      this.setState({openDialog: false,
+      dialogContent:""});
     }
     // this._bind('render','onCellClick');
   }
@@ -83,7 +98,7 @@ class Application extends Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.onDialogClose}
+        onTouchTap={this.onDialogSave}
         />,
     ];
     return (
@@ -163,13 +178,20 @@ class Application extends Component {
                   </Row>
                 </div>
                 <Dialog
-                  title="Dialog With Actions"
+                  title="Raw Lyrics"
                   actions={actions}
                   modal={true}
                   open={this.state.openDialog}
                   onRequestClose={this.onDialogClose}
                   >
-                  The actions in this window were passed in as an array of React objects.
+                  <TextField
+                    hintText="Paste lyrics here"
+                    multiLine={true}
+                    fullWidth={true}
+                    defaultValue={this.state.dialogContent}
+                    onChange={this.onDialogChange}
+                    rows={1} rowsMax={10}
+                    />
                 </Dialog>
               </div>
             );
