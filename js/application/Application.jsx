@@ -81,6 +81,7 @@ class Application extends Component {
     }
     this.onDialogSave=()=>{
       dispatch(modifyAll(this.state.dialogContent));
+      dispatch(changeRow(0));
       this.setState({openDialog: false,
       dialogContent:""});
     }

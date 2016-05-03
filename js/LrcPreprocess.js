@@ -1,7 +1,7 @@
 'use strict';
 export var lyricsDemo=`This is a simple lyrics (aka: .LRC format) editor
 [00:00.00] You may want to click "Open File" to open a song
-[00:02.10] And click "Raw" to paste your lyrics
+[00:02.10] And "Raw" to paste your lyrics
 [00:08.54] Use "Add" and "Delete" to modify time tags
 [00:15.16] When you're done, click "Raw" again to copy your lyrics
 [00:22.13] Sometime I may make a "save" button,

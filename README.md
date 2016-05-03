@@ -1,2 +1,2 @@
-# UNDER CONSTRUCTION
-To be a LRC editor
+# UNDER CONSTRUCTION ...?
+a LRC editor, yes
