@@ -51,11 +51,11 @@ class Application extends Component {
     this.onDeleteClick=()=>{
       dispatch(modifyCell(this.props.rowIndex,0,""));
     }
-    this.onOpenClick=()=>{
-      var fileInput = document.querySelector('#fileElem');
-      console.log(fileInput);
-      click(fileInput);
-    }
+    // this.onOpenClick=()=>{
+    //   var fileInput = document.querySelector('#fileElem');
+    //   console.log(fileInput);
+    //   click(fileInput);
+    // }
     this.handleFile=(f)=>{
       // this.refs.playc.state.openError = false
       let file=f.target.files[0]
@@ -133,9 +133,10 @@ class Application extends Component {
                         marginBottom: '10px'
                       }} params={this.props.params}>
                       <Box params={this.props.params}>
-                        <RaisedButton label="Add" primary={true} style={{
+                        <RaisedButton label="Add Tag" primary={true} style={{
                             width: '80%'
                           }} params={this.props.params} onMouseDown={this.onAddClick}
+                          icon={<FontIcon className="fa fa-plus"/>}
                           ></RaisedButton>
                         </Box>
                       </Col>
@@ -143,9 +144,10 @@ class Application extends Component {
                         <Box style={{
                             marginBottom: '10px'
                           }} params={this.props.params}>
-                          <RaisedButton label="Delete" style={{
+                          <RaisedButton label="Delete Tag" style={{
                               width: '80%'
                             }} secondary={true} params={this.props.params}
+                            icon={<FontIcon className="fa fa-minus"/>}
                             onMouseDown={this.onDeleteClick}></RaisedButton>
                           </Box>
                         </Col>
@@ -155,7 +157,7 @@ class Application extends Component {
                             }} params={this.props.params}>
                             <FileReaderInput as="binary" id="my-file-input"
                               onChange={this.handleFile}>
-                              <RaisedButton label="Open File" style={{
+                              <RaisedButton label="Load Music" style={{
                                 width: '80%'
                               }} params={this.props.params}
                               icon={<FontIcon className="fa fa-music"/>}
@@ -166,9 +168,10 @@ class Application extends Component {
                             <Box style={{
                                 marginBottom: '10px'
                               }} params={this.props.params}>
-                              <RaisedButton label="Raw" style={{
+                              <RaisedButton label="Raw LRC" style={{
                                   width: '80%'
                                 }} params={this.props.params}
+                              icon={<FontIcon className="fa fa-file-text"/>}
                                 onMouseDown={this.onDialogOpen}></RaisedButton>
                               </Box>
                             </Col>
