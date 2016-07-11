@@ -2,7 +2,7 @@
 
 a simple LRC editor
 
-一个简单的[在线LRC编辑器](http://heyeshuang.github.io/hieda-lrc-editor/)
+一个简单的[在线LRC歌词编辑器](http://heyeshuang.github.io/hieda-lrc-editor/)
 
 ## Dev
 
@@ -24,4 +24,4 @@ gulp release
 * And many other library, and many posts on Google ...
 
 ## LICENSE
-GPL v3
+AGPL v3
