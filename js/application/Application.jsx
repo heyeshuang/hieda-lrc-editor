@@ -104,22 +104,11 @@ class Application extends Component {
     ];
     return (
       <div>
-        <Row className="center-xs" params={this.props.params}>
-          <Col className="col-xs-12 col-md-8" params={this.props.params}>
-            <Box style={{
-                marginTop: '200px'
-              }} params={this.props.params}>
-              <Paper zDepth={1} rounded={true} params={this.props.params}>
-                <LyricsTable callbackParent={this.onCellClick}
-                  lrcArray={this.props.lrcArray} selectedRow={this.props.rowIndex} />
-              </Paper>
-            </Box>
-          </Col>
-        </Row>
         <div style={{
-            position: 'fixed',
+            position: 'sticky',
             top: 0,
-            width: '100%'
+            width: '100%',
+            zIndex: 999
           }} params={this.props.params}>
           <Row className="center-xs" params={this.props.params}>
             <Col className="col-xs-12 col-md-8" params={this.props.params}>
@@ -197,6 +186,18 @@ class Application extends Component {
                     rows={1} rowsMax={10}
                     />
                 </Dialog>
+        <Row className="center-xs" params={this.props.params}>
+          <Col className="col-xs-12 col-md-8" params={this.props.params}>
+            <Box style={{
+                marginTop: '10px'
+              }} params={this.props.params}>
+              <Paper zDepth={1} rounded={true} params={this.props.params}>
+                <LyricsTable callbackParent={this.onCellClick}
+                  lrcArray={this.props.lrcArray} selectedRow={this.props.rowIndex} />
+              </Paper>
+            </Box>
+          </Col>
+        </Row>
               </div>
             );
           }
