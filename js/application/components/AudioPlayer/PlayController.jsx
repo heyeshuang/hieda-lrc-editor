@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 
 import ButtonGroup from './ButtonGroup.jsx';
-import Snackbar from 'material-ui/lib/snackbar';
+import Snackbar from 'material-ui/Snackbar';
 import Row from '../FlexboxGrid/Row.jsx';
 import Col from '../FlexboxGrid/Col.jsx';
 import Box from '../FlexboxGrid/Box.jsx';

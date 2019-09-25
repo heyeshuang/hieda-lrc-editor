@@ -11,9 +11,9 @@ import LyricsTable from './components/LyricsTable/LyricsTable.jsx';
 import {RaisedButton} from 'material-ui';
 import {FontIcon} from 'material-ui';
 import {Paper} from 'material-ui';
-import Dialog from 'material-ui/lib/dialog';
-import FlatButton from 'material-ui/lib/flat-button';
-import TextField from 'material-ui/lib/text-field';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import FileReaderInput from 'react-file-reader-input';
 import { changeFile, changeRow, modifyCell,modifyAll } from 'js/actions.js'
 import {secondsToTime} from 'js/TimeFormatter.js'
