@@ -1,17 +1,16 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
 
 import Col from '../FlexboxGrid/Col.jsx';
 import Box from '../FlexboxGrid/Box.jsx';
-import {IconButton} from 'material-ui';
+import IconButton from '@material-ui/core/IconButton';
+import PauseIcon, from '@material-ui/icons/Pause';
+
+
+import Tooltip from '@material-ui/core/Tooltip';
 
 class ButtonGroup extends Component {
-
-  constructor (props, content) {
-    super(props, content); // this.state = {count: props.initialCount};
-  }
 
   render () {
     // const { propOne, propTwo } = this.props;
@@ -35,12 +34,14 @@ class ButtonGroup extends Component {
     return (
       <Col >
         <Box>
-          <IconButton iconClassName={iconName} tooltip={iconTooltip}
+          <Tooltip title={iconTooltip}>
+          <IconButton aria-label={iconName} 
             onClick={buttonClickHandler} disabled={this.props.disabled}></IconButton>
-          <IconButton iconClassName="fa fa-backward" tooltip="Backward"
+          </Tooltip>
+          {/* <IconButton iconClassName="fa fa-backward" tooltip="Backward"
             onClick={this.props.onBackBtnClick} disabled={this.props.disabled}></IconButton>
           <IconButton iconClassName="fa fa-forward" tooltip="Forward"
-            onClick={this.props.onForwardBtnClick} disabled={this.props.disabled}></IconButton>
+            onClick={this.props.onForwardBtnClick} disabled={this.props.disabled}></IconButton> */}
         </Box>
       </Col>
     );
