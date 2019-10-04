@@ -1,14 +1,11 @@
 import React from 'react';
-import ButtonGroup from './components/AudioPlayer/ButtonGroup'
+import PlayController from './components/AudioPlayer/PlayController'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-          <ButtonGroup disabled={false}
-            isPlaying={false} isPause={false}
-            isLoading={false}
-             />
+      <PlayController ref="playc" file />
     </div>
   );
 }
