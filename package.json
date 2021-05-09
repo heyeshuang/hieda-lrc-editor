@@ -17,7 +17,7 @@
   "author": "He Yeshuang <yeshuanghe@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "4.17.19",
+    "lodash": "4.17.21",
     "material-ui": "^0.20.0",
     "react": "^0.14.1",
     "react-addons-create-fragment": "^0.14.1",
